@@ -1,0 +1,30 @@
+[project]
+name = "agentkit"
+version = "0.1.0"
+description = "Reusable Substrate for agentic systems: tracing, evals, secrets, and LangGraph scaffolding"
+license = {text = "MIT"}
+
+readme = "README.md"
+authors = [
+    { name = "Srini Yedluri", email = "yedlurisrinu@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+agentkit = "agentkit:main"
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.6",
+]
+[build-system]
+requires = ["uv_build>=0.11.28,<0.12.0"]
+build-backend = "uv_build"
+[tool.ruff]
+line-length = 100
+target-version="py312"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode="auto"
