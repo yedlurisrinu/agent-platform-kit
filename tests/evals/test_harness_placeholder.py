@@ -1,0 +1,10 @@
+"""Placeholder proving the eval tree is collected and gated in CI.
+
+Real evals land in Thread 05 and call live models. They are marked so they
+can be excluded from the fast unit path.
+"""
+import pytest
+
+@pytest.mark.eval
+def test_eval_harness_is_wired() -> None:
+    assert True

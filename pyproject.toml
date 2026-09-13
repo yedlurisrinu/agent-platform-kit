@@ -32,3 +32,4 @@ target-version="py312"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode="auto"
+markers = [ "eval: model-integration evals; non-deterministic and may cost money",]

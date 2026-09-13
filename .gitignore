@@ -8,6 +8,7 @@ build/
 # uv / virtualenv
 .venv/
 venv/
+.vscode/
 
 # Environment and secrets — never commit
 .env
