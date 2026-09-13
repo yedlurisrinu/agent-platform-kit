@@ -1,0 +1,39 @@
+name: agentkit
+
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:1.62.0
+    container_name: agentkit-jaeger
+    restart: unless-stopped
+    ports:
+      - "16686:16686"   # UI
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    networks:
+      - services_network
+    healthcheck:
+        test: ["CMD", "wget", "--spider", "-q", "http://localhost:14269/"]
+        interval: 10s
+        timeout: 3s
+        retries: 5
+        start_period: 10s
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.115.1
+    container_name: agentkit-otel-collector
+    restart: unless-stopped
+    command: ["--config=/etc/otel/config.yaml"]
+    volumes:
+      - ./docker/otel-collector-config.yaml:/etc/otel/config.yaml:ro
+    ports:
+      - "4317:4317"   # OTLP gRPC — your app points here
+      - "4318:4318"   # OTLP HTTP
+      - "13133:13133" # health
+    depends_on:
+      jaeger:
+        condition: service_healthy
+    networks:
+      - services_network
+
+networks:
+  services_network:
+    external: true

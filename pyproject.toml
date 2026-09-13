@@ -9,7 +9,11 @@ authors = [
     { name = "Srini Yedluri", email = "yedlurisrinu@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "opentelemetry-exporter-otlp-proto-grpc>=1.44.0",
+    "opentelemetry-sdk>=1.44.0",
+    "opentelemetry-semantic-conventions>=0.65b0",
+]
 
 agentkit = "agentkit:main"
 [project.optional-dependencies]
