@@ -6,5 +6,6 @@ can be excluded from the fast unit path.
 import pytest
 
 @pytest.mark.eval
-def test_eval_harness_is_wired() -> None:
-    assert True
+def test_eval_harness_is_wired(model: str, sample_size: int) -> None:
+    assert model
+    assert sample_size > 0

@@ -1,0 +1,22 @@
+name: model-eval-tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: "Model identifier under test"
+        required: true
+        default: "claude-opus-5"
+        type: string
+      sample_size:
+        description: "Number of golden cases to run"
+        required: false
+        default: "20"
+        type: string
+
+jobs:
+  evals:
+    uses: yedlurisrinu/ci-workflows/.github/workflows/eval-tests.yml@main
+    with:
+      model: ${{ inputs.model }}
+      sample_size: ${{ inputs.sample_size }}

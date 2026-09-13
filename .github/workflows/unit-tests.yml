@@ -1,0 +1,10 @@
+name: unit-tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  python:
+    uses: yedlurisrinu/ci-workflows/.github/workflows/python-tests.yml@main
