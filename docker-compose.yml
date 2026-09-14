@@ -34,6 +34,35 @@ services:
     networks:
       - services_network
 
+  tei:
+    image: ghcr.io/huggingface/text-embeddings-inference:120-1.9
+    container_name: agentkit-tei
+    restart: unless-stopped
+    command: ["--model-id", "BAAI/bge-small-en-v1.5"]
+    ports:
+      - "8088:80"
+    volumes:
+      - tei-cache:/data
+    environment:
+      HF_HOME: /data
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - services_network
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:80/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 90s
+
+volumes:
+  tei-cache:
 networks:
   services_network:
     external: true
